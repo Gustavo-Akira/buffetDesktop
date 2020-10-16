@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gustavoakira.javafx.buffet.controllers.ClientAddController">
    <children>
       <GridPane layoutX="52.0" layoutY="59.0" prefHeight="269.0" prefWidth="501.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="20.0">
         <columnConstraints>
@@ -25,18 +25,18 @@
         </rowConstraints>
          <children>
             <Label text="First Name" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-            <TextField prefHeight="25.0" prefWidth="172.0" GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="3" />
+            <TextField fx:id="firstName" prefHeight="25.0" prefWidth="172.0" GridPane.columnIndex="1" />
+            <TextField fx:id="lastName" GridPane.columnIndex="3" />
             <Label text="Last Name" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
             <Label text="Birthday" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
             <Label text="Day of Enroll" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
             <Label text="Telephone" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="2" />
-            <DatePicker prefHeight="25.0" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <DatePicker prefHeight="25.0" prefWidth="203.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <TextField fx:id="telephone" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="2" />
+            <DatePicker fx:id="birthday" prefHeight="25.0" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <DatePicker fx:id="dayOfEnroll" prefHeight="25.0" prefWidth="203.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <Button layoutX="364.0" layoutY="307.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="105.0" text="Cadastrar" AnchorPane.bottomAnchor="58.0" />
-      <Button layoutX="477.0" layoutY="307.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="73.0" text="Cancelar" />
+      <Button layoutX="364.0" layoutY="307.0" mnemonicParsing="false" onAction="#saveClient" prefHeight="35.0" prefWidth="105.0" text="Cadastrar" AnchorPane.bottomAnchor="58.0" />
+      <Button layoutX="477.0" layoutY="307.0" mnemonicParsing="false" onAction="#close" prefHeight="35.0" prefWidth="73.0" text="Cancelar" />
    </children>
 </AnchorPane>

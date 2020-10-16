@@ -13,6 +13,7 @@ import gustavoakira.javafx.buffet.model.ClientTable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,6 +25,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class ClientController implements Initializable{
 	
@@ -52,7 +54,7 @@ public class ClientController implements Initializable{
 	
 	private ClientDao clientdao = new ClientDaoImpl();
 	
-	private List<Client> clients = clientdao.getAll();
+	private List<Client> clients = null;
 	
 	private ObservableList<ClientTable> list = FXCollections.observableArrayList();
 	
@@ -71,9 +73,11 @@ public class ClientController implements Initializable{
 		cadastro.initModality(Modality.WINDOW_MODAL);
 		cadastro.initOwner(((Node) event.getSource()).getScene().getWindow());
 		cadastro.showAndWait();
+		listClients();
 	}
 	
 	public void listClients() {
+		clients = clientdao.getAll();
 		if(!list.isEmpty()) {
 			list.clear();
 		}
