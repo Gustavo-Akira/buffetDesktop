@@ -36,7 +36,7 @@
             <DatePicker fx:id="dayOfEnroll" prefHeight="25.0" prefWidth="203.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <Button layoutX="364.0" layoutY="307.0" mnemonicParsing="false" onAction="#saveClient" prefHeight="35.0" prefWidth="105.0" text="Cadastrar" AnchorPane.bottomAnchor="58.0" />
+      <Button layoutX="364.0" layoutY="307.0" mnemonicParsing="false" onAction="#saveClient" prefHeight="35.0" prefWidth="105.0" text="Ok" AnchorPane.bottomAnchor="58.0" />
       <Button layoutX="477.0" layoutY="307.0" mnemonicParsing="false" onAction="#close" prefHeight="35.0" prefWidth="73.0" text="Cancelar" />
    </children>
 </AnchorPane>

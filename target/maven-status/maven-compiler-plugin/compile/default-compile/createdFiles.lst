@@ -2,6 +2,7 @@ gustavoakira\javafx\buffet\model\Party.class
 gustavoakira\javafx\buffet\util\HibernateUtil.class
 gustavoakira\javafx\buffet\App.class
 gustavoakira\javafx\buffet\model\Client.class
+gustavoakira\javafx\buffet\controllers\ClientController$2.class
 gustavoakira\javafx\buffet\controllers\ClientController.class
 gustavoakira\javafx\buffet\dao\ClientDao.class
 gustavoakira\javafx\buffet\dao\ClientDaoImpl.class

@@ -29,7 +29,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class ClientController implements Initializable {
-
+	
 	@FXML
 	private TableView<ClientTable> clientTable;
 
@@ -54,8 +54,8 @@ public class ClientController implements Initializable {
 	@FXML
 	private TableColumn<ClientTable, ClientTable> tcRemove;
 
-	//@FXML
-	//private TableColumn<ClientTable, ClientTable> tcEdit;
+	@FXML
+	private TableColumn<ClientTable, ClientTable> tcEdit;
 
 	private ClientDao clientdao = new ClientDaoImpl();
 
@@ -70,13 +70,26 @@ public class ClientController implements Initializable {
 
 	@FXML
 	public void addClient(ActionEvent event) throws IOException {
-
 		Parent parent = FXMLLoader.load(getClass().getResource("../views/ClientAdd.fxml"));
 		Scene scene = new Scene(parent);
 		Stage cadastro = new Stage();
 		cadastro.setScene(scene);
 		cadastro.initModality(Modality.WINDOW_MODAL);
 		cadastro.initOwner(((Node) event.getSource()).getScene().getWindow());
+		cadastro.showAndWait();
+		listClients();
+	}
+	
+	public void editClient(ClientTable client) throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/ClientAdd.fxml"));
+		Parent parent = loader.load();
+		ClientAddController controller = loader.getController();
+		controller.setClient(client);
+		Scene scene = new Scene(parent);
+		Stage cadastro = new Stage();
+		cadastro.setScene(scene);
+		cadastro.initModality(Modality.WINDOW_MODAL);
+		cadastro.initOwner(clientTable.getScene().getWindow());
 		cadastro.showAndWait();
 		listClients();
 	}
@@ -117,6 +130,28 @@ public class ClientController implements Initializable {
 				button.setText("Remove");
 				setGraphic(button);
 				button.setOnAction(event->removeClient(obj));
+			}
+		});
+		tcEdit.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		tcEdit.setCellFactory(param -> new TableCell<ClientTable, ClientTable>() {
+			private final Button button = new Button();
+
+			@Override
+			protected void updateItem(ClientTable obj, boolean empty) {
+				super.updateItem(obj, empty);
+				if (obj == null) {
+					setGraphic(null);
+					return;
+				}
+				button.setText("Edit");
+				setGraphic(button);
+				button.setOnAction(event->{
+					try {
+						editClient(obj);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				});
 			}
 		});
 		clientTable.setItems(list);
