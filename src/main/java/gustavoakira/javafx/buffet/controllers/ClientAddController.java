@@ -38,7 +38,6 @@ public class ClientAddController implements Initializable{
 	
 	@FXML
 	public void saveClient(ActionEvent event) {
-		System.out.println("props");
 		try {
 			Client client = new Client();
 			client.setFirstName(firstName.getText());

@@ -17,6 +17,7 @@
             <TableColumn fx:id="tcbirthday" prefWidth="94.0" text="Birthday" />
             <TableColumn fx:id="tctelephone" prefWidth="75.0" text="Telephone" />
             <TableColumn fx:id="tcdayOfEnroll" prefWidth="75.0" text="Day of Enroll" />
+            <TableColumn fx:id="tcRemove" prefWidth="75.0" text="Remove" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
