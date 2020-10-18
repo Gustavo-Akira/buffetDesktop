@@ -28,7 +28,7 @@ public class App extends Application {
     
     private void setInitScene() {
     	try {
-    		AnchorPane parent = (AnchorPane)loadFXML("views/ClientList");
+    		AnchorPane parent = (AnchorPane)loadFXML("views/PartyList");
     		
     		rootLayout.setCenter(parent);
     		

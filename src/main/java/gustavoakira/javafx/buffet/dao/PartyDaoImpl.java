@@ -13,7 +13,7 @@ public class PartyDaoImpl implements PartyDao {
 	@Override
 	public List<Party> getAll() {
 		List<Party> list = new ArrayList<Party>();
-		Session s = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session s = HibernateUtil.getSessionFactory().openSession();
 		s.beginTransaction();
 		list = s.createQuery("from Party").getResultList();
 		s.getTransaction().commit();
@@ -24,7 +24,7 @@ public class PartyDaoImpl implements PartyDao {
 	@Override
 	public Party getOne(Long id) {
 		Party party = null;
-		Session s = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session s = HibernateUtil.getSessionFactory().openSession();
 		s.beginTransaction();
 		party =(Party) s.createQuery("from Party party where party.id="+id).getSingleResult();
 		s.getTransaction().commit();
@@ -34,7 +34,7 @@ public class PartyDaoImpl implements PartyDao {
 
 	@Override
 	public void updateParty(Party party) {
-		Session s = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session s = HibernateUtil.getSessionFactory().openSession();
 		s.beginTransaction();
 		s.update(party);
 		s.getTransaction().commit();
@@ -43,7 +43,7 @@ public class PartyDaoImpl implements PartyDao {
 
 	@Override
 	public void add(Party party) {
-		Session s = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session s = HibernateUtil.getSessionFactory().openSession();
 		s.beginTransaction();
 		s.save(party);
 		s.getTransaction().commit();

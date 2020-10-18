@@ -15,15 +15,16 @@ public class PartyTable {
 	private final ObjectProperty<Time> initHour;
 	private final ObjectProperty<Time> finalHour;
 	private final SimpleLongProperty id;
-	
+	private final ObjectProperty<Client> client;
 	public PartyTable(String theme, String address, 
-			LocalDate date, Time initHour, Time finalHour, Long id) {
+			LocalDate date, Time initHour, Time finalHour, Long id, Client client) {
 		this.theme = new SimpleStringProperty(theme);
 		this.address = new SimpleStringProperty(address);
 		this.date = new SimpleObjectProperty<LocalDate>(date);
 		this.initHour = new SimpleObjectProperty<Time>(initHour);
 		this.finalHour = new SimpleObjectProperty<Time>(finalHour);
 		this.id = new SimpleLongProperty(id);
+		this.client = new SimpleObjectProperty<Client>(client);
 	}
 	
 	public String getTheme() {
@@ -48,5 +49,8 @@ public class PartyTable {
 	
 	public Long getId() {
 		return this.id.get();
+	}
+	public String getClient() {
+		return this.client.get().getLastName();
 	}
 }
