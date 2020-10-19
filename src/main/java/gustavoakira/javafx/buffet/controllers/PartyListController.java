@@ -1,5 +1,6 @@
 package gustavoakira.javafx.buffet.controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Time;
 import java.util.ArrayList;
@@ -13,11 +14,19 @@ import gustavoakira.javafx.buffet.model.Party;
 import gustavoakira.javafx.buffet.model.PartyTable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class PartyListController implements Initializable {
 	
@@ -50,6 +59,21 @@ public class PartyListController implements Initializable {
 	private List<Party> parties = new ArrayList<Party>();
 	
 	private ObservableList<PartyTable> list = FXCollections.observableArrayList();
+	
+	@FXML
+	public void newAction(ActionEvent event) throws IOException {
+		System.out.println("a");
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/PartyAdd.fxml"));
+		Parent parent = loader.load();
+		PartyAddController controller = loader.getController();
+		controller.loadObjects();
+		Stage d = new Stage();
+		d.setScene(new Scene(parent));
+		d.initModality(Modality.WINDOW_MODAL);
+		d.initOwner(((Node) event.getSource()).getScene().getWindow());
+		d.showAndWait();
+		listPartys();
+	}
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {		

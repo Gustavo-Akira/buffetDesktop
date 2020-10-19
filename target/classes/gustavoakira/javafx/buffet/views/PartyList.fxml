@@ -28,6 +28,6 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Button layoutX="21.0" layoutY="68.0" mnemonicParsing="false" text="New" />
+      <Button layoutX="21.0" layoutY="68.0" mnemonicParsing="false" onAction="#newAction" text="New" />
    </children>
 </AnchorPane>

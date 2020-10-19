@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -11,8 +12,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gustavoakira.javafx.buffet.controllers.PartyAddController">
    <children>
       <GridPane layoutX="73.0" layoutY="125.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="30.0">
         <columnConstraints>
@@ -27,22 +27,24 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextField GridPane.columnIndex="1" />
-            <JFXTimePicker prefHeight="28.0" prefWidth="329.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <TextField fx:id="theme" GridPane.columnIndex="1" />
+            <JFXTimePicker fx:id="initHour" prefHeight="28.0" prefWidth="329.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
             <Label text="Theme" GridPane.halignment="CENTER" />
             <Label text="Start" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
             <Label text="End" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
             <Label text="Address" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
             <Label text="Client" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="3" />
-            <JFXTimePicker prefHeight="28.0" prefWidth="209.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <ComboBox prefHeight="25.0" prefWidth="212.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="address" GridPane.columnIndex="3" />
+            <JFXTimePicker fx:id="endHour" prefHeight="28.0" prefWidth="209.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <ComboBox fx:id="clientBox" prefHeight="25.0" prefWidth="212.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <DatePicker fx:id="date" prefHeight="25.0" prefWidth="189.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <Label text="Date" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <ButtonBar layoutX="291.0" layoutY="310.0" prefHeight="55.0" prefWidth="268.0">
         <buttons>
-          <Button mnemonicParsing="false" prefHeight="42.0" text="Ok" />
-            <Button mnemonicParsing="false" prefHeight="43.0" prefWidth="125.0" text="Cancel" />
+          <Button mnemonicParsing="false" onAction="#saveClient" prefHeight="42.0" text="Ok" />
+            <Button mnemonicParsing="false" onAction="#close" prefHeight="43.0" prefWidth="125.0" text="Cancel" />
         </buttons>
       </ButtonBar>
    </children>
