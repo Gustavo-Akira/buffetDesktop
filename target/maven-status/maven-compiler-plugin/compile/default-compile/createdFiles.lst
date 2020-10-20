@@ -1,4 +1,5 @@
 gustavoakira\javafx\buffet\util\HibernateUtil.class
+gustavoakira\javafx\buffet\controllers\RootController.class
 gustavoakira\javafx\buffet\App.class
 gustavoakira\javafx\buffet\dao\PartyDao.class
 gustavoakira\javafx\buffet\controllers\ClientController$2.class

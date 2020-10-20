@@ -16,7 +16,7 @@ import java.io.IOException;
 public class App extends Application {
 
     private Stage primaryStage;
-    private BorderPane rootLayout;
+    private static BorderPane rootLayout;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -52,7 +52,17 @@ public class App extends Application {
              e.printStackTrace();
          }
     }
-
+    
+    public static void setStage(String stage) {
+    	try {
+    		AnchorPane parent = (AnchorPane)loadFXML(stage);
+    		
+    		rootLayout.setCenter(parent);
+    		
+    	}catch(IOException ex) {
+    		ex.printStackTrace();
+    	}
+    }
     public static void main(String[] args) {
         launch();
     }
