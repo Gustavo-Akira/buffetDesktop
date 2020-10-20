@@ -50,4 +50,13 @@ public class PartyDaoImpl implements PartyDao {
 		s.close();
 	}
 
+	@Override
+	public void removeParty(Long id) {
+		Session s = HibernateUtil.getSessionFactory().openSession();
+		s.beginTransaction();
+		Party party =(Party)s.load(Party.class, id);
+		s.remove(party);
+		s.getTransaction().commit();
+		s.close();
+	}
 }

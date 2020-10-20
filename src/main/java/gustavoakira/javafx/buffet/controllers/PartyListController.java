@@ -10,8 +10,10 @@ import java.util.ResourceBundle;
 
 import gustavoakira.javafx.buffet.dao.PartyDao;
 import gustavoakira.javafx.buffet.dao.PartyDaoImpl;
+import gustavoakira.javafx.buffet.model.PartyTable;
 import gustavoakira.javafx.buffet.model.Party;
 import gustavoakira.javafx.buffet.model.PartyTable;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,6 +24,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -54,6 +57,12 @@ public class PartyListController implements Initializable {
 	@FXML
 	private TableColumn<PartyTable, String> tcClientName;
 	
+	@FXML
+	private TableColumn<PartyTable, PartyTable> tcEdit;
+	
+	@FXML
+	private TableColumn<PartyTable, PartyTable> tcRemove;
+	
 	private PartyDao partyDao = new PartyDaoImpl();
 	
 	private List<Party> parties = new ArrayList<Party>();
@@ -62,7 +71,6 @@ public class PartyListController implements Initializable {
 	
 	@FXML
 	public void newAction(ActionEvent event) throws IOException {
-		System.out.println("a");
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/PartyAdd.fxml"));
 		Parent parent = loader.load();
 		PartyAddController controller = loader.getController();
@@ -77,6 +85,11 @@ public class PartyListController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {		
+		listPartys();
+	}
+	
+	private void removeParty(PartyTable party) {
+		this.partyDao.removeParty(party.getId());
 		listPartys();
 	}
 	
@@ -97,6 +110,59 @@ public class PartyListController implements Initializable {
 		tcInitHour.setCellValueFactory(new PropertyValueFactory<PartyTable, Time>("InitHour"));
 		tcFinalHour.setCellValueFactory(new PropertyValueFactory<PartyTable, Time>("FinalHour"));
 		tcClientName.setCellValueFactory(new PropertyValueFactory<PartyTable, String>("client"));
+		tcRemove.setCellValueFactory(param -> new ReadOnlyObjectWrapper<PartyTable>(param.getValue()));
+		tcRemove.setCellFactory(param -> new TableCell<PartyTable, PartyTable>() {
+			private final Button button = new Button();
+
+			@Override
+			protected void updateItem(PartyTable obj, boolean empty) {
+				super.updateItem(obj, empty);
+
+				if (obj == null) {
+					setGraphic(null);
+					return;
+				}
+				button.setText("Remove");
+				setGraphic(button);
+				button.setOnAction(event->removeParty(obj));
+			}
+		});
+		tcEdit.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		tcEdit.setCellFactory(param -> new TableCell<PartyTable, PartyTable>() {
+			private final Button button = new Button();
+
+			@Override
+			protected void updateItem(PartyTable obj, boolean empty) {
+				super.updateItem(obj, empty);
+				if (obj == null) {
+					setGraphic(null);
+					return;
+				}
+				button.setText("Edit");
+				setGraphic(button);
+				button.setOnAction(event->{
+					try {
+						editParty(obj);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				});
+			}
+		});
 		partyTable.setItems(list);
+	}
+	private void editParty(PartyTable party) throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/PartyAdd.fxml"));
+		Parent parent = loader.load();
+		PartyAddController controller = loader.getController();
+		controller.loadObjects();
+		Party obj = new Party();
+		controller.setParty(party);
+		Stage d = new Stage();
+		d.setScene(new Scene(parent));
+		d.initModality(Modality.WINDOW_MODAL);
+		d.initOwner(partyTable.getScene().getWindow());
+		d.showAndWait();
+		listPartys();
 	}
 }

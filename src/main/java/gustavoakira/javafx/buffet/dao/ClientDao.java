@@ -10,4 +10,5 @@ public interface ClientDao {
 	public List<Client> getAll();
 	public void remove(Long id);
 	public Client update(Client client);
+	public Client getByLastName(String lastName);
 }

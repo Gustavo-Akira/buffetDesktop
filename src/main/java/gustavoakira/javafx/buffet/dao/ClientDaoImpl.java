@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.Session;
 
 import gustavoakira.javafx.buffet.model.Client;
+import gustavoakira.javafx.buffet.model.Party;
 import gustavoakira.javafx.buffet.util.HibernateUtil;
 
 public class ClientDaoImpl implements ClientDao {
@@ -23,7 +24,7 @@ public class ClientDaoImpl implements ClientDao {
 	public Client getOne(Long id) {
 		Session s = HibernateUtil.getSessionFactory().openSession();
 		s.beginTransaction();
-		Client client = (Client) s.createQuery("from Client as client where client.id ="+id).getSingleResult();
+		Client client = (Client) s.createQuery("from Client as client where client.id =" + id).getSingleResult();
 		s.getTransaction().commit();
 		s.close();
 		return client;
@@ -58,6 +59,16 @@ public class ClientDaoImpl implements ClientDao {
 		s.getTransaction().commit();
 		s.close();
 		return null;
+	}
+
+	@Override
+	public Client getByLastName(String lastName) {
+		Session s = HibernateUtil.getSessionFactory().openSession();
+		s.beginTransaction();
+		Client client = (Client) s.createQuery("from Client client where client.lastName='" + lastName+"'").getSingleResult();
+		s.getTransaction().commit();
+		s.close();
+		return client;
 	}
 
 }

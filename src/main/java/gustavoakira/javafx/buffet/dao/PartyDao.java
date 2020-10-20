@@ -9,4 +9,5 @@ public interface PartyDao {
 	public Party getOne(Long id);
 	public void updateParty(Party party);
 	public void add(Party party);
+	public void removeParty(Long id);
 }

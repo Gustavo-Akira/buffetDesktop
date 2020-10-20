@@ -2,6 +2,8 @@ package gustavoakira.javafx.buffet.controllers;
 
 import java.net.URL;
 import java.sql.Time;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXTimePicker;
@@ -12,6 +14,7 @@ import gustavoakira.javafx.buffet.dao.PartyDao;
 import gustavoakira.javafx.buffet.dao.PartyDaoImpl;
 import gustavoakira.javafx.buffet.model.Client;
 import gustavoakira.javafx.buffet.model.Party;
+import gustavoakira.javafx.buffet.model.PartyTable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -25,7 +28,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 public class PartyAddController implements Initializable {
-	private Party party = null;
+	private PartyTable party = null;
 	private ObservableList<Client> obs;
 	private ClientDao clientDao = new ClientDaoImpl();
 	private PartyDao partyDao = new PartyDaoImpl();
@@ -73,15 +76,18 @@ public class PartyAddController implements Initializable {
 	
 	@FXML
 	public void saveClient() {
+		Party obj = new Party();
+		obj.setAddress(this.address.getText());
+		obj.setClient(clientBox.getValue());
+		obj.setTheme(theme.getText());
+		obj.setDate(date.getValue());
+		obj.setInitHour(Time.valueOf(initHour.getValue()));
+		obj.setFinalHour(Time.valueOf(endHour.getValue()));
 		if(party == null) {
-			party = new Party();
-			party.setAddress(this.address.getText());
-			party.setClient(clientBox.getValue());
-			party.setTheme(theme.getText());
-			party.setDate(date.getValue());
-			party.setInitHour(Time.valueOf(initHour.getValue()));
-			party.setFinalHour(Time.valueOf(endHour.getValue()));
-			this.partyDao.add(party);
+			this.partyDao.add(obj);
+		}else {
+			obj.setId(this.party.getId());
+			this.partyDao.updateParty(obj);
 		}
 		close();
 	}
@@ -89,5 +95,19 @@ public class PartyAddController implements Initializable {
 	public void close() {
 		Stage stage = (Stage) address.getScene().getWindow();
 		stage.close();
+	}
+	
+	public void setParty(PartyTable party) {
+		this.party = party;
+		setInputs();
+	}
+	
+	private void setInputs() {
+		this.address.setText(this.party.getAddress());
+		this.clientBox.setValue(clientDao.getByLastName(this.party.getClient()));
+		this.date.setValue(this.party.getDate());
+		this.initHour.setValue(this.party.getInitHour().toLocalTime());
+		this.endHour.setValue(this.party.getFinalHour().toLocalTime());
+		this.theme.setText(this.party.getTheme());
 	}
 }
